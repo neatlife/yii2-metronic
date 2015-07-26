@@ -1,0 +1,27 @@
+{
+    "name": "suxiaolin/yii2-metronic",
+    "description": "Yii2 Metronic theme integration",
+    "keywords": ["yii2", "theme", "metronic"],
+    "type": "yii2-extension",
+    "license": "BSD",
+    "support": {
+        "issues": "https://github.com/suxiaolin/yii2-metronic/issues",
+        "wiki": "https://github.com/suxiaolin/yii2-metronic/wiki",
+        "source": "https://github.com/suxiaolin/yii2-metronic"
+    },
+    "authors": [
+        {
+            "name": "suxiaolin",
+            "email": "suxiaolin@mail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "kartik-v/yii2-grid": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "suxiaolin\\metronic\\": ""
+        }
+    }
+}
