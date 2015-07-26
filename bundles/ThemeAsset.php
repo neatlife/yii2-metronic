@@ -40,6 +40,8 @@ class ThemeAsset extends AssetBundle {
      */
     public $js = [
         'scripts/layout.js',
+        'scripts/quick-sidebar.js',
+        'scripts/demo.js',
     ];
 
     /**
