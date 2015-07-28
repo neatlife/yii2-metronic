@@ -96,7 +96,7 @@ class Menu extends \yii\widgets\Menu {
      * The token `{arrow}` will be replaced with the corresponding link arrow.
      * This property will be overridden by the `template` option set in individual menu items via [[items]].
      */
-    public $linkTemplate = '<a href="{url}">{icon}{label}{badge}{arrow}</a>';
+    public $linkTemplate = '<a href="{url}">{icon}{selected}{label}{badge}{arrow}</a>';
 
     /**
      * @var bool Indicates whether menu is visible.
@@ -234,6 +234,7 @@ HTML;
         return strtr(ArrayHelper::getValue($item, 'template', $this->linkTemplate), [
             '{url}' => $this->_pullItemUrl($item),
             '{label}' => $this->_pullItemLabel($item),
+            '{selected}' => $this->_pullItemSelected($item),
             '{icon}' => $this->_pullItemIcon($item),
             '{arrow}' => $this->_pullItemArrow($item),
             '{badge}' => $this->_pullItemBadge($item),
@@ -274,6 +275,13 @@ HTML;
         }
 
         return sprintf(' %s', $label);
+    }
+    
+    private function _pullItemSelected($item) {
+	    if ($item['active']) {
+		    return Html::tag('span', '', ['class' => 'selected']);
+	    }
+	    return '';
     }
 
     /**
