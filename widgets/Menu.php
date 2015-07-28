@@ -102,6 +102,32 @@ class Menu extends \yii\widgets\Menu {
      * @var bool Indicates whether menu is visible.
      */
     public $visible = true;
+    
+    public $options = [];
+    
+    public $toggleMenu = '<li class="sidebar-toggler-wrapper"><div class="sidebar-toggler"></div></li>';
+    
+    public $searchMenu = false;
+    
+    protected $_searchTemplate = <<<'HTML'
+<li class="sidebar-search-wrapper">
+	<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+	<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+	<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+	<form class="sidebar-search " action="{action}" method="{method}">
+		<a href="javascript:;" class="remove">
+		<i class="icon-close"></i>
+		</a>
+		<div class="input-group">
+			<input type="text" class="form-control" name="{name}" placeholder="{placeholder}">
+			<span class="input-group-btn">
+			<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+			</span>
+		</div>
+	</form>
+	<!-- END RESPONSIVE QUICK SEARCH FORM -->
+</li>
+HTML;
 
     /**
      * Initializes the widget.
@@ -121,7 +147,24 @@ class Menu extends \yii\widgets\Menu {
         echo Html::beginTag('div', ['class' => 'page-sidebar-wrapper']);
         echo Html::beginTag('div', ['class' => 'page-sidebar navbar-collapse collapse']);
 
+        echo Html::beginTag('ul', $this->options);
+        echo $this->toggleMenu ? $this->toggleMenu : '';
+        if ($this->searchMenu) {
+	        $options = ArrayHelper::merge([
+			    'url' => '',
+			    'method' => 'GET',
+			    'name' => 'keyword',
+			    'placeholder' => '搜索',
+		    ], $this->searchMenu);
+		    echo strtr($this->_searchTemplate, [
+			    '{action}' => Url::to($options['url']),
+			    '{method}' => $options['method'],
+			    '{name}' => $options['name'],
+			    '{placeholder}' => $options['placeholder'],
+		    ]);
+        }
         parent::run();
+        echo Html::endTag('ul');
 
         echo Html::endTag('div');
         echo Html::endTag('div');
